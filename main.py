@@ -60,18 +60,18 @@ def fetch_documents(
     wiki: ContentPort = Provide[containers.Settings.content.git_wiki],
     assets_path: Path = Provide[containers.Settings.core.assets_path],
 ):
-    project = "pdf.js"
+    project = "code-inputs"
 
-    code_url = f"ssh://git@github.com/mozilla/{project}.git"
+    code_url = f"ssh://git@github.com/mcauley-penney/{project}.git"
     code_path = assets_path.joinpath(project)
 
-    wiki_url = f"ssh://git@github.com/mozilla/{project}.wiki.git"
+    wiki_url = f"ssh://git@github.com/mcauley-penney/{project}.wiki.git"
     wiki_path = assets_path.joinpath(project + ".wiki")
 
     if code_path.exists():
-        code_docs = code.get_by_path(project, code_path, branch="master")
+        code_docs = code.get_by_path(project, code_path, branch="main")
     else:
-        code_docs = code.get_by_url(project, code_url, branch="master")
+        code_docs = code.get_by_url(project, code_url, branch="main")
 
     if wiki_path.exists():
         wiki_docs = wiki.get_by_path(project, wiki_path)
@@ -102,6 +102,5 @@ if __name__ == "__main__":
     set_debug(True)
     set_verbose(True)
 
-    # fetch_documents()
-    # run_discord()
-    run_api()
+    fetch_documents()
+    #  run_api()
